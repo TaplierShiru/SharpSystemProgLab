@@ -34,8 +34,19 @@ namespace CreationBusinessDLL.CSV
         public string Version { get => this._version; set => this._version = value; }
         public string DataCreation { get => this._data_creation; set => this._data_creation = value; }
 
+        /// <summary>
+        /// Return elements in next order:
+        /// file_name, version, data_creation
+        /// </summary>
         public string[] GetCSVData => new string[] { this._file_name, this._version, this._data_creation };
 
+        /// <summary>
+        /// Set up CSV data with certain input string
+        /// Each element must separate each other with some char 
+        /// (By default its ;)
+        /// Order of CSV: file_name, version, data_creation
+        /// Example: "meow_file; v1.222; 20.03.2000"
+        /// </summary>
         public string SetCSVData { set {
                 string[] in_str = value.Split(CSVDataElem.SPLIT_CHAR);
                 this.FileName = in_str[CSVDataElem.INDX_FILE_NAME];

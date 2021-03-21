@@ -8,6 +8,10 @@ namespace CreationBusinessDLL.SharpAnalyzer
 {
     class SharpForAnalyzer : ISharpForAnalyzer
     {
+        private string _input_str = null;
+        private int? _num_fors = null;
+        private string _error = null;
+
         public bool Analyze(string in_str)
         {
             throw new NotImplementedException();
