@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="SPLab.CSVFileControl.CSVFileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d">
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition MinWidth="200" Width="8*"/>
+            <ColumnDefinition Width="1*" MinWidth="200"/>
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <DataGrid Name="DataGridCSV" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False" 
+                  Grid.Column="1" Grid.Row="1" ItemsSource="{Binding FileInfo}" SelectedItem="{Binding SelectedItem}"
+                  AutoGenerateColumns="False" RowHeaderWidth="0" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+            <DataGrid.Columns>
+                <DataGridTextColumn MinWidth="80" Binding="{Binding FileName}" Header="Имя файла"></DataGridTextColumn>
+                <DataGridTextColumn MinWidth="50" Binding="{Binding Version}" Header="Версия"></DataGridTextColumn>
+                <DataGridTextColumn MinWidth="80" Binding="{Binding DataOfCreation}" Header="Дата создания"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="20"/>
+                <RowDefinition MinHeight="20"/>
+                <RowDefinition MinHeight="20"/>
+                <RowDefinition MinHeight="20"/>
+                <RowDefinition MinHeight="20"/>
+                <RowDefinition MinHeight="20"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" HorizontalAlignment="Center">Выбранное поле</Label>
+            <Grid Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="95"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition MinHeight="20"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0">Имя файла:</Label>
+                <TextBox Grid.Column="1" Name="FileNameTextBox" Text="{Binding SelectedItem.FileName}"></TextBox>
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="95"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition MinHeight="20"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0">Версия:</Label>
+                <TextBox Grid.Column="1" Name="VersionTextBox" Text="{Binding SelectedItem.Version}"></TextBox>
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="95"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition MinHeight="20"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0">Дата создания:</Label>
+                <TextBox Grid.Column="1" Name="DataOfCreationTextBox" Text="{Binding SelectedItem.DataOfCreation}"></TextBox>
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="RemoveRowTable" Content="Удалить" Grid.Column="1" HorizontalAlignment="Center" 
+                                Grid.Row="0" VerticalAlignment="Center" Width="75" Command="{Binding RemoveCommand}"
+                />
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="20"/>
+                <ColumnDefinition MinWidth="20"/>
+                <ColumnDefinition MinWidth="20"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="20"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="AddFileButton" Content="Добавить" HorizontalAlignment="Center" 
+                                Grid.Column="0" VerticalAlignment="Center" Width="75" Command="{Binding AddCommand}"
+            />
+            
+            <Button x:Name="x1" Content="Загрузить" HorizontalAlignment="Center" 
+                                Grid.Column="1" VerticalAlignment="Center" Width="75" Command="{Binding LoadCommand}"
+            />
+            
+            <Button x:Name="x2" Content="Сохранить" HorizontalAlignment="Center" 
+                                Grid.Column="2" VerticalAlignment="Center" Width="75" Command="{Binding SaveCommand}"
+            />
+        </Grid>
+    </Grid>
+</UserControl>

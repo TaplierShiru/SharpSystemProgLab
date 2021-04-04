@@ -34,7 +34,7 @@ namespace CreationBusinessDLL.CSV
                 // Add separator if this isn't the first value
                 if (!firstColumn)
                 {
-                    builder.Append(CSVDataElem.SPLIT_CHAR);
+                    builder.Append(CSVFileInfo.SPLIT_CHAR);
 
                 }
                 // Implement special handling for values that contain comma or quote

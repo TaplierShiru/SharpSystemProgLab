@@ -15,9 +15,9 @@ namespace CreationBusinessDLL
             
             var writer = new CSVFileWriter("test.csv");
 
-            var csv_elem_1 = new CSVDataElem("blabla", "v1.3", "222");
-            var csv_elem_2 = new CSVDataElem("blsssa", "2.3", "112");
-            var csv_elem_3 = new CSVDataElem("bl", "v22.3", "332");
+            var csv_elem_1 = new CSVFileInfo("blabla", "v1.3", "222");
+            var csv_elem_2 = new CSVFileInfo("blsssa", "2.3", "112");
+            var csv_elem_3 = new CSVFileInfo("bl", "v22.3", "332");
 
             writer.WriteCSV(csv_elem_1);
             writer.WriteCSV(csv_elem_2);
@@ -27,7 +27,7 @@ namespace CreationBusinessDLL
             
 
             var reader = new CSVFileReader("test.csv");
-            var list = reader.ReadCSV<CSVDataElem>();
+            var list = reader.ReadCSV<CSVFileInfo>();
 
 
             foreach( var elem in list)
@@ -39,6 +39,11 @@ namespace CreationBusinessDLL
 
                 Console.WriteLine();
             }
+
+            Console.WriteLine();
+            var controller = new CSVFileController();
+            controller.Add(@"D:\Game's\RivaTuner Statistics Server\EncoderServer.exe");
+            Console.WriteLine(controller.GetAtIndex(0)[1]);
 
             Console.ReadKey();
         }

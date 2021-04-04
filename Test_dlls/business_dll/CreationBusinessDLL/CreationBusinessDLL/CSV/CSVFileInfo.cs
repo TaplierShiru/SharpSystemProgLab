@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CreationBusinessDLL.CSV
 {
-    class CSVDataElem : ICSVDataElem
+    public class CSVFileInfo : ICSVFileInfo
     {
         public static readonly char SPLIT_CHAR = ';';
         public static readonly int INDX_FILE_NAME = 0;
@@ -17,14 +17,14 @@ namespace CreationBusinessDLL.CSV
         private string _file_name;
         private string _version;
         private string _data_creation;
-        public CSVDataElem()
+        public CSVFileInfo()
         {
             this._file_name = "";
             this._version = "";
             this._data_creation = "";
         }
 
-        public CSVDataElem(string file_name, string version, string data_cretion)
+        public CSVFileInfo(string file_name, string version, string data_cretion)
         {
             this._file_name = file_name;
             this._version = version;
@@ -32,7 +32,7 @@ namespace CreationBusinessDLL.CSV
         }
         public string FileName { get => this._file_name; set => this._file_name = value; }
         public string Version { get => this._version; set => this._version = value; }
-        public string DataCreation { get => this._data_creation; set => this._data_creation = value; }
+        public string DataOfCreation { get => this._data_creation; set => this._data_creation = value; }
 
         /// <summary>
         /// Return elements in next order:
@@ -48,10 +48,10 @@ namespace CreationBusinessDLL.CSV
         /// Example: "meow_file; v1.222; 20.03.2000"
         /// </summary>
         public string SetCSVData { set {
-                string[] in_str = value.Split(CSVDataElem.SPLIT_CHAR);
-                this.FileName = in_str[CSVDataElem.INDX_FILE_NAME];
-                this.Version = in_str[CSVDataElem.INDX_VERSION];
-                this.DataCreation = in_str[CSVDataElem.INDX_DATA_CREATION];
+                string[] in_str = value.Split(CSVFileInfo.SPLIT_CHAR);
+                this.FileName = in_str[CSVFileInfo.INDX_FILE_NAME];
+                this.Version = in_str[CSVFileInfo.INDX_VERSION];
+                this.DataOfCreation = in_str[CSVFileInfo.INDX_DATA_CREATION];
 
             }
         }

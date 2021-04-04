@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CreationBusinessDLL
+namespace CreationBusinessDLL.Interfaces
 {
-    interface ISharpForAnalyzer
+    public interface ISharpForAnalyzer
     {
-
-        bool Analyze(string in_str);
-        int GetNumFor();
-        KeyValuePair<int, string> GetError();
+        string AnalyzedCode { get; set; }
+        bool AnalyzeCode();
+        int GetNumFor { get; }
+        string GetErrorMessage { get; }
 
     }
 }

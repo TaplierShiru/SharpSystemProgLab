@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CreationBusinessDLL
+namespace CreationBusinessDLL.Interfaces
 {
-    interface ICSVDataElem
+    public interface ICSVDataElem
     { 
         string[] GetCSVData { get; }
         string SetCSVData { set; }

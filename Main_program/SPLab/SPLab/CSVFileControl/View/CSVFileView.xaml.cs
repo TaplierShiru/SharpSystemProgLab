@@ -1,6 +1,10 @@
-﻿using SPLab.CSVFileControl;
+﻿using Microsoft.Win32;
+using SPLab.LogPanelControl;
+using SPLab.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,17 +18,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SPLab
+namespace SPLab.CSVFileControl
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CSVFileView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CSVFileView : UserControl
     {
-        public MainWindow()
+        public CSVFileView()
         {
             InitializeComponent();
+            DataContext = new CSVFileViewModel();
         }
-
     }
 }

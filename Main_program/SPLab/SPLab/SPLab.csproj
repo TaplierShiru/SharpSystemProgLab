@@ -35,8 +35,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CreationBusinessDLL">
+      <HintPath>..\..\..\Test_dlls\business_dll\CreationBusinessDLL\CreationBusinessDLL\bin\Debug\CreationBusinessDLL.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,7 +60,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="CSVFileView.xaml">
+    <Page Include="CSVFileControl\View\CSVFileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ForAnalyzerControl\View\ForAnalyzerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LogPanelControl\LogPanelControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -67,11 +80,26 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CSVFileModel.cs" />
-    <Compile Include="CSVFileView.xaml.cs">
+    <Compile Include="CSVFileControl\ViewModel\CSVFileViewModel.cs" />
+    <Compile Include="CSVFileControl\ViewModel\ICSVFileViewModel.cs" />
+    <Compile Include="CSVFileControl\View\CSVFileView.xaml.cs">
       <DependentUpon>CSVFileView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FileInfo.cs" />
+    <Compile Include="CSVFileControl\Model\CSVFileModel.cs" />
+    <Compile Include="CSVFileControl\FileInfo.cs" />
+    <Compile Include="CSVFileControl\Model\ICSVFileModel.cs" />
+    <Compile Include="ForAnalyzerControl\Model\ForAnalyzerModel.cs" />
+    <Compile Include="ForAnalyzerControl\Model\IForAnalyzerModel.cs" />
+    <Compile Include="ForAnalyzerControl\ViewModel\ForAnalyzerViewModel.cs" />
+    <Compile Include="ForAnalyzerControl\ViewModel\IForAnalyzerViewModel.cs" />
+    <Compile Include="ForAnalyzerControl\View\ForAnalyzerView.xaml.cs">
+      <DependentUpon>ForAnalyzerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LogPanelControl\LogPanelControl.xaml.cs">
+      <DependentUpon>LogPanelControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Mediator.cs" />
+    <Compile Include="Utils\RelayCommand.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -102,6 +130,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="LowMathControl\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

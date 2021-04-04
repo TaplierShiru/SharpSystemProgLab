@@ -1,11 +1,12 @@
-﻿<Window x:Class="SPLab.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SPLab"
+        xmlns:LogPanelControl="clr-namespace:SPLab.LogPanelControl" xmlns:CSVFileControl="clr-namespace:SPLab.CSVFileControl" x:Class="SPLab.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="500">
+        Title="MainWindow" Height="500" Width="650">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
@@ -14,38 +15,39 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
-            <RowDefinition/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="1">
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Margin="3">Test1</TextBlock>
+                    <TextBlock Margin="3"><Run Text="Работа с файлами"/></TextBlock>
                 </TabItem.Header>
-                <TabItem.Content>
-                    <local:CSVFileView />
-                </TabItem.Content>
+                <CSVFileControl:CSVFileView/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Margin="3">Test2</TextBlock>
+                    <TextBlock Margin="3"><Run Text="Test2"/></TextBlock>
                 </TabItem.Header>
-                <TabItem.Content>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="20" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="20"/>
-                            <RowDefinition/>
-                            <RowDefinition Height="20"/>
-                        </Grid.RowDefinitions>
-                        <Button Grid.Column="1" Grid.Row="1" Width="50" Height="50">Test2</Button>
-                    </Grid>
-                </TabItem.Content>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="20" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Column="1" Grid.Row="1" Width="50" Height="50" Content="Test2"/>
+                </Grid>
             </TabItem>
         </TabControl>
+
+        <LogPanelControl:LogPanelControl x:Name="logPanelControl" Grid.Column="1" 
+                                         HorizontalAlignment="Stretch"  Grid.Row="2" VerticalAlignment="Stretch"/>
+
     </Grid>
 </Window>

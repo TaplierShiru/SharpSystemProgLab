@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="SPLab.ForAnalyzerControl.View.ForAnalyzerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SPLab.ForAnalyzerControl.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition MinWidth="200" Width="8*"/>
+            <ColumnDefinition Width="1*" MinWidth="200"/>
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="1" Grid.Row="1">Окно для ввода анализируемой части кода</Label>
+        <RichTextBox Grid.Column="1" Grid.Row="2"></RichTextBox>
+        
+    </Grid>
+</UserControl>

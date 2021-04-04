@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace CreationBusinessDLL.Interfaces
 {
-    public interface ICSVFileReader
+    public interface ICSVFileInfo : ICSVDataElem
     {
-        List<ICSVDataElem> ReadCSV<T>() where T : ICSVDataElem, new();
-        void Close();
+        string FileName { get; set; }
+        string Version { get; set; }
+        string DataOfCreation { get; set; }
     }
 }

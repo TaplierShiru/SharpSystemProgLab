@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CreationBusinessDLL.Interfaces
 {
-    interface ICSVFileWriter
+    public interface ICSVFileWriter
     {
         void WriteCSV(ICSVDataElem singleElem);
         void Close();

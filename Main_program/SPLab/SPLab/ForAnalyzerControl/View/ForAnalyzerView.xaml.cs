@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SPLab
+namespace SPLab.ForAnalyzerControl.View
 {
     /// <summary>
-    /// Interaction logic for CSVFileView.xaml
+    /// Interaction logic for ForAnalyzerView.xaml
     /// </summary>
-    public partial class CSVFileView : UserControl
+    public partial class ForAnalyzerView : UserControl
     {
-
-        public CSVFileView()
+        public ForAnalyzerView()
         {
             InitializeComponent();
-            DataContext = new CSVFileModel();
         }
-
     }
 }
