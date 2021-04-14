@@ -36,11 +36,6 @@ namespace SPLab.CSVFileControl
         }
         public CSVFileModel()
         {
-            
-        }
-
-        public void Compile()
-        {
             this._dll_info = Assembly.LoadFile(this._path_to_dll);
             this._classType = this._dll_info.GetType("CreationBusinessDLL.CSV.CSVFileController");
             this._file_controller = Activator.CreateInstance(this._classType);
@@ -49,9 +44,16 @@ namespace SPLab.CSVFileControl
         public void Load(string path)
         {
             this._classType.GetMethod("Load").Invoke(this._file_controller, new object[] {
-                @"D:\University\СП\Лаба\SharpSystemProgLab\Main_program\SPLab\SPLab\CSVFileControl\DLL\test.csv" 
+                path
             });
             
+        }
+
+        public void Save(string path)
+        {
+            this._classType.GetMethod("Save").Invoke(this._file_controller, new object[] {
+                path
+            });
         }
 
         public void Add(string fileName, string version, string dataOfCreation)

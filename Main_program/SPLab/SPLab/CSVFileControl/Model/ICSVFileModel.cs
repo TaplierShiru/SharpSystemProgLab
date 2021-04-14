@@ -10,9 +10,8 @@ namespace SPLab.CSVFileControl
     {
         List<FileInfo> GetList {get;}
 
-        void Compile();
-
         void Load(string path);
+        void Save(string path);
 
         void Add(string fileName, string version, string dataOfCreation);
 

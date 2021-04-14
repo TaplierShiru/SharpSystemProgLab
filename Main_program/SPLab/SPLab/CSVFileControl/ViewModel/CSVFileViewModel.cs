@@ -106,17 +106,9 @@ namespace SPLab.CSVFileControl
         public CSVFileViewModel()
         {
             this._file_controller = new CSVFileModel();
-            this._file_controller.Compile();
             GenerateFilesTest();
         }
-
-        private void NotifyPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
+        
         private void AddNewFileInfo()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -136,12 +128,34 @@ namespace SPLab.CSVFileControl
 
         private void LoadFileInfo()
         {
-            // что загрузить
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "CSV files (*.csv)|*.csv";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                Trace.WriteLine(openFileDialog.FileName);
+                this._file_controller.Load(openFileDialog.FileName);
+                this.NotifyFileInfoAndUpdateLogInfo("Load current table from: " + openFileDialog.FileName);
+            }
         }
 
         private void SaveFileInfo()
         {
-            // куда сохранить
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                Trace.WriteLine(saveFileDialog.FileName);
+                this._file_controller.Save(saveFileDialog.FileName);
+                this.NotifyFileInfoAndUpdateLogInfo("Save current table to: " + saveFileDialog.FileName);
+            }
+        }
+
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         private void NotifyFileInfoAndUpdateLogInfo(string logStr)

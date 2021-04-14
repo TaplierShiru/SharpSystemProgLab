@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,18 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SPLab.ForAnalyzerControl
+namespace SPLab.LowMathControl
 {
     /// <summary>
-    /// Interaction logic for ForAnalyzerView.xaml
+    /// Interaction logic for LowMathView.xaml
     /// </summary>
-    public partial class ForAnalyzerView : UserControl
+    public partial class LowMathView : UserControl
     {
-        public ForAnalyzerView()
+        public LowMathView()
         {
             InitializeComponent();
-            DataContext = new ForAnalyzerViewModel();
+            DataContext = new LowMathViewModel();
         }
-        
+
     }
 }

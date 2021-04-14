@@ -25,15 +25,7 @@ namespace SPLab.LogPanelControl
         public LogPanelControl()
         {
             InitializeComponent();
-            Mediator.Register("PrintLog", UpdateLogTextBox);
-        }
-
-        protected virtual void UpdateLogTextBox(object args)
-        {
-            Trace.WriteLine("Trigger event");
-            this.LogRichTextBox.AppendText((string)args);
-            this.LogRichTextBox.AppendText(Environment.NewLine);
-
+            DataContext = new LogPanelViewModel();
         }
     }
 }

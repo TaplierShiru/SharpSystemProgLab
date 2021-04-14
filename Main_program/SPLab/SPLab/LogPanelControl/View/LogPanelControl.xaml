@@ -19,7 +19,9 @@
             <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
         <Label Grid.Column="1" Grid.Row="1">Лог окно</Label>
-        <RichTextBox x:Name="LogRichTextBox" Grid.Column="1" Grid.Row="2" 
-                     IsReadOnly="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></RichTextBox>
+        <TextBox x:Name="LogTextBox" Grid.Column="1" Grid.Row="2" 
+                 IsReadOnly="True" VerticalAlignment="Stretch" 
+                 HorizontalAlignment="Stretch" Text="{Binding LogText}"
+        />
     </Grid>
 </UserControl>

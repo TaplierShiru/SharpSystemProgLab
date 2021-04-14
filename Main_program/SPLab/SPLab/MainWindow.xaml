@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SPLab"
-        xmlns:LogPanelControl="clr-namespace:SPLab.LogPanelControl" xmlns:CSVFileControl="clr-namespace:SPLab.CSVFileControl" x:Class="SPLab.MainWindow"
+        xmlns:LogPanelControl="clr-namespace:SPLab.LogPanelControl" xmlns:CSVFileControl="clr-namespace:SPLab.CSVFileControl" xmlns:ForAnalyzerControl="clr-namespace:SPLab.ForAnalyzerControl" xmlns:LowMathControl="clr-namespace:SPLab.LowMathControl" x:Class="SPLab.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="650">
     <Grid>
@@ -28,22 +28,15 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Margin="3"><Run Text="Test2"/></TextBlock>
+                    <TextBlock Margin="3"><Run Text="Анализ части кода"/></TextBlock>
                 </TabItem.Header>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="20" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="20"/>
-                        <RowDefinition/>
-                        <RowDefinition Height="20"/>
-                    </Grid.RowDefinitions>
-                    <Button Grid.Column="1" Grid.Row="1" Width="50" Height="50" Content="Test2"/>
-                </Grid>
+                <ForAnalyzerControl:ForAnalyzerView/>
             </TabItem>
+            <TabItem>
+                <TabItem.Header>Вызов функции из языка низкого уровня</TabItem.Header>
+                <LowMathControl:LowMathView/>
+            </TabItem>
+            
         </TabControl>
 
         <LogPanelControl:LogPanelControl x:Name="logPanelControl" Grid.Column="1" 

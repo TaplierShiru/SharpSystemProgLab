@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace SPLab.CSVFileControl
+namespace SPLab.Utils
 {
     public class RelayCommand : ICommand
     {
