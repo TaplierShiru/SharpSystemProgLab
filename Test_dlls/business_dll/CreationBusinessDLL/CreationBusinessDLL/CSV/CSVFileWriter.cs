@@ -10,21 +10,28 @@ using System.Threading.Tasks;
 namespace CreationBusinessDLL.CSV
 {
     /// <summary>
-    /// Class to write data to a CSV file
+    /// Класс для работы с csv данными:
+    /// Делает запись данных в csv файл
     /// </summary>
     class CSVFileWriter : StreamWriter, ICSVFileWriter
     {
-
+        /// <summary>
+        /// Конструктор для создания класса записи csv элементов в файл
+        /// </summary>
+        /// <param name="stream">Класс потока, куда необходимо записывать данные</param>
         public CSVFileWriter(Stream stream) : base(stream)
         { }
 
+        /// <summary>
+        /// Конструктор для создания класса записи csv элементов в файл
+        /// </summary>
+        /// <param name="filename">Название файла, куда следует записывать данные, 
+        /// при его отсуствии - файл будет создан
+        /// </param>
         public CSVFileWriter(string filename) : base(filename)
         { }
 
-        /// <summary>
-        /// Writes a single element to a CSV file.
-        /// </summary>
-        /// <param name="singleElem">The element to be written</param>
+        /// <inheritdoc/>
         public void WriteCSV(ICSVDataElem singleElem)
         {
             StringBuilder builder = new StringBuilder();

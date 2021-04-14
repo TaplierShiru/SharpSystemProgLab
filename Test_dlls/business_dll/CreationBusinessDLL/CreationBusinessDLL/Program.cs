@@ -1,4 +1,5 @@
 ﻿using CreationBusinessDLL.CSV;
+using CreationBusinessDLL.SharpAnalyzer;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +11,24 @@ namespace CreationBusinessDLL
 {
     class Program
     {
+
         static void Main(string[] args)
+        { 
+            string code = @"
+for(int i = 0; i < 100; i++){
+1
+}
+            ";
+            var analyzer = new SharpForAnalyzer(code);
+            analyzer.AnalyzeCode();
+
+            Console.WriteLine(analyzer.GetErrorMessage);
+            Console.WriteLine(analyzer.GetNumFor);
+
+            Console.ReadKey();
+        }
+
+        static void Main1(string[] args)
         {
             
             var writer = new CSVFileWriter("test.csv");
