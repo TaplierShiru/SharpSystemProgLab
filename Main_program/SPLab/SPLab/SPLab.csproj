@@ -85,13 +85,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CSVFileControl\Utils\IFileInfo.cs" />
     <Compile Include="CSVFileControl\ViewModel\CSVFileViewModel.cs" />
     <Compile Include="CSVFileControl\ViewModel\ICSVFileViewModel.cs" />
     <Compile Include="CSVFileControl\View\CSVFileView.xaml.cs">
       <DependentUpon>CSVFileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="CSVFileControl\Model\CSVFileModel.cs" />
-    <Compile Include="CSVFileControl\FileInfo.cs" />
+    <Compile Include="CSVFileControl\Utils\FileInfo.cs" />
     <Compile Include="CSVFileControl\Model\ICSVFileModel.cs" />
     <Compile Include="ForAnalyzerControl\Model\ForAnalyzerModel.cs" />
     <Compile Include="ForAnalyzerControl\Model\IForAnalyzerModel.cs" />

@@ -9,7 +9,7 @@ using System.Windows.Input;
 namespace SPLab.CSVFileControl
 {
     /// <summary>
-    /// Реализует логику CSVFile части приложения
+    /// Интерфейс для ViewModel части CSVFile виджета
     /// </summary>
     interface ICSVFileViewModel
     {

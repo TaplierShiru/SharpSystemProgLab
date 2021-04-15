@@ -13,10 +13,13 @@ using System.Windows.Input;
 
 namespace SPLab.CSVFileControl
 {
-    /// <inheritdoc/>
+    /// <summary>
+    /// Класс реализующий логику ViewModel части CSVFile виджета
+    /// </summary>
     class CSVFileViewModel : INotifyPropertyChanged, ICSVFileViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
         private FileInfo _selectedItem;
         /// <inheritdoc/>
         public FileInfo SelectedItem
@@ -32,7 +35,9 @@ namespace SPLab.CSVFileControl
                 }
             }
         }
+
         private CSVFileModel _file_controller;
+
         /// <inheritdoc/>
         public ICollectionView FileInfo
         {
@@ -103,12 +108,18 @@ namespace SPLab.CSVFileControl
             }
         }
 
+        /// <summary>
+        /// Инициализация ViewModel части виджета CSVFile
+        /// </summary>
         public CSVFileViewModel()
         {
             this._file_controller = new CSVFileModel();
             GenerateFilesTest();
         }
         
+        /// <summary>
+        /// Добавление новой информации об файле
+        /// </summary>
         private void AddNewFileInfo()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -120,12 +131,19 @@ namespace SPLab.CSVFileControl
                 this.NotifyFileInfoAndUpdateLogInfo("Add new item.");
             }
         }
+
+        /// <summary>
+        /// Удаление выбранного элемента
+        /// </summary>
         private void RemoveSelectedItem()
         {
             this._file_controller.Remove(this._selectedItem.Indx);
             this.NotifyFileInfoAndUpdateLogInfo("Remove selected item from table.");
         }
 
+        /// <summary>
+        /// Загрузка csv файла
+        /// </summary>
         private void LoadFileInfo()
         {
             var openFileDialog = new OpenFileDialog();
@@ -138,6 +156,10 @@ namespace SPLab.CSVFileControl
             }
         }
 
+
+        /// <summary>
+        /// Сохранение текущих данных в csv файл
+        /// </summary>
         private void SaveFileInfo()
         {
             var saveFileDialog = new SaveFileDialog();
@@ -150,6 +172,10 @@ namespace SPLab.CSVFileControl
             }
         }
 
+        /// <summary>
+        /// Вызов события - изменилось поле
+        /// </summary>
+        /// <param name="propertyName">Имя поля что было измененно</param>
         private void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -158,11 +184,19 @@ namespace SPLab.CSVFileControl
             }
         }
 
+        /// <summary>
+        /// Обновление ячеек таблицы и вывод информации в логгер
+        /// </summary>
+        /// <param name="logStr">Информация которую следует вывести в лог</param>
         private void NotifyFileInfoAndUpdateLogInfo(string logStr)
         {
             Mediator.NotifyColleagues("PrintLog", logStr);
             NotifyPropertyChanged("FileInfo");
         }
+
+        /// <summary>
+        /// Тестовые начальные данные
+        /// </summary>
         private void GenerateFilesTest()
         {
             this._file_controller.Add("Badyda", "v1", "20.20.20");

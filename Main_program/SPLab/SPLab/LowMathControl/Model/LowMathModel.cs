@@ -7,37 +7,79 @@ using System.Threading.Tasks;
 
 namespace SPLab.LowMathControl
 {
+    /// <summary>
+    /// 
+    /// </summary>
     class LowMathModel : ILowMathModel
     {
+        /// <inheritdoc/>
         public string VarA { get; set; }
+
+        /// <inheritdoc/>
         public string VarB { get; set; }
 
-        public int Calculate()
+        /// <inheritdoc/>
+        public string ErrorMess { get; set; }
+
+        /// <inheritdoc/>
+        public uint? Calculate()
         {
-            int var_a, var_b;
+            uint var_a, var_b;
             try
             {
-                if (!(int.TryParse(VarA, out var_a) && int.TryParse(VarB, out var_b)))
-                {
-                    throw new Exception("Число введено неправильно!\n");
-                }
-                return (int)this.ByteOr(var_a, var_b);
+                var res = this.ChecktypeOfError();
+                var_a = res[0];
+                var_b = res[1];
+                return (uint)this.ByteOr(var_a, var_b);
             }
             catch
             {
-                return -1;
+                return null;
             }
         }
-        private int ByteOr(int var_a, int var_b)
+
+        private uint ByteOr(uint var_a, uint var_b)
         {
             Assembly asm = Assembly.Load(System.IO.File.ReadAllBytes(
                 @"D:\University\СП\Лаба\SharpSystemProgLab\Test_dlls\low_dll\low_dll\low_dll\bin\Debug\LowMathByteOr.dll"
             ));
             Type t = asm.GetType("LowMathByteOr_DLL");
-            return (int)t.GetMethod(
+            return (uint)t.GetMethod(
                 "ByteOr",
                 BindingFlags.Instance | BindingFlags.Public
             ).Invoke(Activator.CreateInstance(t), new object[] { var_a, var_b });
+        }
+
+        private uint[] ChecktypeOfError()
+        {
+            long var_a, var_b;
+            ErrorMess = "";
+
+            if (!long.TryParse(VarA, out var_a))
+            {
+                ErrorMess = "Ошибка: Первая переменная введена неверно\n";
+                throw new Exception("Число введено неправильно!\n");
+            }
+
+            if (!long.TryParse(VarB, out var_b))
+            {
+                ErrorMess += "Ошибка: Вторая переменная введена неверно\n";
+                throw new Exception("Число введено неправильно!\n");
+            }
+
+            if (var_a < 0 || var_a >= uint.MaxValue)
+            {
+                ErrorMess += "Ошибка: Первая переменная имеет отрицательное значение\n или слишком большое значение\n";
+                throw new Exception("Число введено неправильно!\n");
+            }
+
+            if (var_b < 0 || var_b >= uint.MaxValue)
+            {
+                ErrorMess += "Ошибка: Вторая переменная имеет отрицательное значение\n или слишком большое значение\n";
+                throw new Exception("Число введено неправильно!\n");
+            }
+
+            return new uint[] { (uint)var_a, (uint)var_b };
         }
 
     }

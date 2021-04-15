@@ -9,7 +9,10 @@ using System.Windows.Input;
 
 namespace SPLab.LogPanelControl
 {
-    /// <inheritdoc/>
+    /// <summary>
+    /// Класс реализует ViewModel часть виджета LogPanel
+    /// LogPanel - отображает окно логгов действий пользователя
+    /// </summary>
     class LogPanelViewModel : ILogPanelViewModel, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -31,11 +34,21 @@ namespace SPLab.LogPanelControl
             Mediator.Register("PrintLog", this.AddNewLine);
         }
 
+        /// <summary>
+        /// Добавляет строку в логгер с временем срабатывания
+        /// </summary>
+        /// <param name="newLine"></param>
         private void AddNewLine(object newLine)
         {
-            this.LogText += (string)newLine + '\n';
+            this.LogText += DateTime.Now + " : "  + (string)newLine + '\n';
             
         }
+
+
+        /// <summary>
+        /// Вызов события - изменилось поле
+        /// </summary>
+        /// <param name="propertyName">Имя поля что было измененно</param>
         private void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)

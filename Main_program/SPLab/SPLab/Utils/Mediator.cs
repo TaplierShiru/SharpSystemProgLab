@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 namespace SPLab.Utils
 {
     /// <summary>
-    /// Class which implements The mediator pattern
-    /// In order to connect certain controls
+    /// Класс реализующий паттерн посредник (или медиатор)
+    /// Он необходим чтобы соединять различные виджеты
     /// </summary>
     public static class Mediator
     {
         static IDictionary<string, List<Action<object>>> pl_dict = new Dictionary<string, List<Action<object>>>();
 
         /// <summary>
-        /// Register some action in Mediator
+        /// Регистрация события (действия) в медиаторе
         /// </summary>
-        /// <param name="token">Name of the action</param>
-        /// <param name="callback">Action that would be perfermed by certain `token`</param>
+        /// <param name="token">Название действия</param>
+        /// <param name="callback">Действие которое должно быть совершенно</param>
         static public void Register(string token, Action<object> callback)
         {
             if (!pl_dict.ContainsKey(token))
@@ -45,10 +45,10 @@ namespace SPLab.Utils
         }
 
         /// <summary>
-        /// Remove action from Mediator by `token`
+        /// Удаление действия по его имени
         /// </summary>
-        /// <param name="token">Name of the action</param>
-        /// <param name="callback">Action that would be perfermed by certain `token`</param>
+        /// <param name="token">Имя действия</param>
+        /// <param name="callback">Действие которое должно быть совершенно по имени `token`</param>
         static public void Unregister(string token, Action<object> callback)
         {
             if (pl_dict.ContainsKey(token))
@@ -58,10 +58,10 @@ namespace SPLab.Utils
         }
 
         /// <summary>
-        /// Performe action by certain name, i.e. `token`
+        /// Выполнить действие по имени `token` с входными параметрами `args`
         /// </summary>
-        /// <param name="token">Name of the action</param>
-        /// <param name="args">Arguments into action</param>
+        /// <param name="token">Имя действия</param>
+        /// <param name="args">Аргументы для действия</param>
         static public void NotifyColleagues(string token, object args)
         {
             if (pl_dict.ContainsKey(token))

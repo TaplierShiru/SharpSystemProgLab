@@ -6,11 +6,29 @@ using System.Threading.Tasks;
 
 namespace SPLab.LowMathControl
 {
+    /// <summary>
+    /// 
+    /// </summary>
     interface ILowMathModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         string VarA { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         string VarB { get; set; }
 
-        int Calculate();
+        /// <summary>
+        /// 
+        /// </summary>
+        string ErrorMess { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        uint? Calculate();
     }
 }

@@ -23,8 +23,8 @@ namespace low_dll.LowMath
             var methodBuilderOr = typeBuilder.DefineMethod(
                 "ByteOr",
                 MethodAttributes.Public,
-                typeof(int),
-                new Type[] { typeof(int), typeof(int) }
+                typeof(uint),
+                new Type[] { typeof(uint), typeof(uint) }
             );
             ILGenerator iLGenerator = methodBuilderOr.GetILGenerator();
             iLGenerator.Emit(OpCodes.Ldarg_1);

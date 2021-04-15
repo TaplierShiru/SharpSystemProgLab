@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace SPLab.CSVFileControl
 {
-    // Impliments ICSVFileInfo - swap it in dll and take list from dll - 
-    // After that connect list from dll to view - we have what we want!!!
-    public class FileInfo : INotifyPropertyChanged
+    /// <summary>
+    /// Класс хранящий данные об одном .exe файле
+    /// для их последующей визуализации
+    /// </summary>
+    public class FileInfo : INotifyPropertyChanged, IFileInfo
     {
-        public static readonly char SPLIT_CHAR = ';';
-        public static readonly int INDX_FILE_NAME = 0;
-        public static readonly int INDX_VERSION = 1;
-        public static readonly int INDX_DATA_CREATION = 2;
     
         #region INotifyPropertyChanged Members
 
@@ -27,6 +25,7 @@ namespace SPLab.CSVFileControl
         private string _dataOfCreation;
         private int _indx;
 
+        ///<inheritdoc/>
         public string FileName 
         {
             get { return this._fileName; }
@@ -37,6 +36,7 @@ namespace SPLab.CSVFileControl
             }
         }
 
+        ///<inheritdoc/>
         public string Version
         {
             get { return this._version; }
@@ -47,6 +47,7 @@ namespace SPLab.CSVFileControl
             }
         }
 
+        ///<inheritdoc/>
         public string DataOfCreation
         {
             get { return this._dataOfCreation; }
@@ -57,6 +58,7 @@ namespace SPLab.CSVFileControl
             }
         }
 
+        ///<inheritdoc/>
         public int Indx
         {
             get { return this._indx; }
@@ -64,48 +66,50 @@ namespace SPLab.CSVFileControl
         }
 
         /// <summary>
-        /// Return elements in next order:
-        /// file_name, version, data_creation
+        /// Иинициализация класса для хранения данных об .exe файле
+        /// Все поля инициализируются как "None" значения
         /// </summary>
-        public string[] GetCSVData => new string[] { this._fileName, this._version, this._dataOfCreation };
-
-        /// <summary>
-        /// Set up CSV data with certain input string
-        /// Each element must separate each other with some char 
-        /// (By default its ;)
-        /// Order of CSV: file_name, version, data_creation
-        /// Example: "meow_file; v1.222; 20.03.2000"
-        /// </summary>
-        public string SetCSVData
-        {
-            set
-            {
-                string[] in_str = value.Split(FileInfo.SPLIT_CHAR);
-                this.FileName = in_str[FileInfo.INDX_FILE_NAME];
-                this.Version = in_str[FileInfo.INDX_VERSION];
-                this.DataOfCreation = in_str[FileInfo.INDX_DATA_CREATION];
-
-            }
-        }
-
         public FileInfo()
         {
             this.FileName = "None";
             this.Version = "None";
             this.DataOfCreation = "None";
+            this.Indx = 0;
         }
+
+        /// <summary>
+        /// Иинициализация класса для хранения данных об .exe файле
+        /// </summary>
+        /// <param name="fileName">Имя файла</param>
+        /// <param name="version">Версия файла</param>
+        /// <param name="dataOfCreation">Дата создания файла</param>
         public FileInfo(string fileName, string version, string dataOfCreation)
         {
             this.FileName = fileName;
             this.Version = version;
             this.DataOfCreation = dataOfCreation;
+            this.Indx = 0;
         }
+
+        /// <summary>
+        /// Иинициализация класса для хранения данных об .exe файле
+        /// с определенным индексом
+        /// </summary>
+        /// <param name="fileName">Имя файла</param>
+        /// <param name="version">Версия файла</param>
+        /// <param name="dataOfCreation">Дата создания файла</param>
+        /// <param name="indx">Индекс файла</param>
         public FileInfo(string fileName, string version, string dataOfCreation, int indx) : this(fileName, version, dataOfCreation)
         {
             this.Indx = indx;
         }
+
         #region Private Helpers
 
+        /// <summary>
+        /// Вызов события - изменилось поле
+        /// </summary>
+        /// <param name="propertyName">Имя поля что было измененно</param>
         private void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)

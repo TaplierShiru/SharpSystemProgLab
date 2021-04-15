@@ -9,14 +9,21 @@ using System.Threading.Tasks;
 
 namespace SPLab.CSVFileControl
 {
+    /// <summary>
+    /// Класс описывающий модель для CSVFile виджета
+    /// </summary>
     class CSVFileModel : ICSVFileModel
     {
+        // Поля необходимые для работы с dll
         private Type _classType;
         private Assembly _dll_info;
         private object _file_controller;
+        // Путь до dll 
         private string _path_to_dll = @"D:\University\СП\Лаба\SharpSystemProgLab\Test_dlls\" +
                                       @"business_dll\CreationBusinessDLL\CreationBusinessDLL\" +
                                       @"bin\Debug\CreationBusinessDLL.dll";
+        
+        ///<inheritdoc/>
         public List<FileInfo> GetList
         {
             get
@@ -34,6 +41,10 @@ namespace SPLab.CSVFileControl
                 return fileInfoList;
             }
         }
+
+        /// <summary>
+        /// Инициализация класса модели CSVFile виджета
+        /// </summary>
         public CSVFileModel()
         {
             this._dll_info = Assembly.LoadFile(this._path_to_dll);
@@ -41,14 +52,16 @@ namespace SPLab.CSVFileControl
             this._file_controller = Activator.CreateInstance(this._classType);
         }
 
+        ///<inheritdoc/>
         public void Load(string path)
         {
             this._classType.GetMethod("Load").Invoke(this._file_controller, new object[] {
                 path
             });
-            
+
         }
 
+        ///<inheritdoc/>
         public void Save(string path)
         {
             this._classType.GetMethod("Save").Invoke(this._file_controller, new object[] {
@@ -56,6 +69,7 @@ namespace SPLab.CSVFileControl
             });
         }
 
+        ///<inheritdoc/>
         public void Add(string fileName, string version, string dataOfCreation)
         {
             this._classType.GetMethod(
@@ -67,6 +81,7 @@ namespace SPLab.CSVFileControl
             );
         }
 
+        ///<inheritdoc/>
         public void Add(string path)
         {
             this._classType.GetMethod(
@@ -80,6 +95,7 @@ namespace SPLab.CSVFileControl
             Trace.WriteLine(GetList.Count);
         }
 
+        ///<inheritdoc/>
         public void Remove(int indx)
         {
             this._classType.GetMethod(
@@ -92,12 +108,15 @@ namespace SPLab.CSVFileControl
 
             Trace.WriteLine("Remove: " + indx);
         }
+
+        ///<inheritdoc/>
         public int GetSize()
         {
             var size = this._classType.GetProperty("GetListSize").GetValue(this._file_controller);
             return size is null ? 0 : (int)size;
         }
 
+        ///<inheritdoc/>
         public string[] GetAtIndex(int indx)
         {
             return (string[])this._classType.GetMethod(

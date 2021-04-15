@@ -9,11 +9,20 @@ using System.Windows.Input;
 
 namespace SPLab.ForAnalyzerControl
 {
+    /// <summary>
+    /// Класс реализующий ViewModel часть для виджета ForAnalyzer
+    /// </summary>
     class ForAnalyzerViewModel : INotifyPropertyChanged, IForAnalyzerViewModel
     {
+        // Константа нужна чтобы разбить большое сообщение об ошибке в несколько строк
+        // Иначе в самом окне оно будет как длинная строка - что плохо и неудобно читать
         public const int MAX_LENGTH = 30;
+
         public event PropertyChangedEventHandler PropertyChanged;
+        
         private ForAnalyzerModel _forAnalyzerModel;
+        
+        ///<inheritdoc/>
         public string AnalyzedCode
         {
             get => this._forAnalyzerModel.AnalyzedCode;
@@ -24,8 +33,10 @@ namespace SPLab.ForAnalyzerControl
             }
         }
 
+        ///<inheritdoc/>
         public int GetNumFor => _forAnalyzerModel.GetNumFor;
 
+        ///<inheritdoc/>
         public string GetErrorMessage
         {
             get {
@@ -72,6 +83,9 @@ namespace SPLab.ForAnalyzerControl
             this._forAnalyzerModel = new ForAnalyzerModel();
         }
 
+        /// <summary>
+        /// Анализ кода и обновление окошен по выводу итоговой информации
+        /// </summary>
         private void AnalyzeCode()
         {
             Mediator.NotifyColleagues("PrintLog", "Анализ выражения...");
@@ -81,6 +95,10 @@ namespace SPLab.ForAnalyzerControl
             NotifyPropertyChanged("GetNumFor");
         }
 
+        /// <summary>
+        /// Вызов события - изменилось поле
+        /// </summary>
+        /// <param name="propertyName">Имя поля что было измененно</param>
         private void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)

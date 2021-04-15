@@ -8,7 +8,7 @@ using System.Windows.Input;
 namespace SPLab.LogPanelControl
 {
     /// <summary>
-    /// Отображает информацию о действиях пользователя в окне логгов
+    /// Интерфейс для ViewModel части виджета LogPanel
     /// </summary>
     interface ILogPanelViewModel
     {

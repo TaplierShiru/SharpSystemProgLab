@@ -80,11 +80,10 @@ namespace SPLab.LowMathControl
             Mediator.NotifyColleagues("PrintLog", "Идет расчет при помощи низкоуровневой функции...");
             var res = this._lowMathModel.Calculate();
             this.Res = res + "";
-            if (res == -1)
+            if (res is null)
             {
                 Mediator.NotifyColleagues("PrintLog", "Расчет при помощи низкоуровневой функции закончен неудачно.");
-                //  Show errors?
-                this.ErrorMess = "Один из параметров был введен не верно!";
+                this.ErrorMess = this._lowMathModel.ErrorMess;
             }
             else
             {

@@ -21,7 +21,7 @@ using System.Windows.Shapes;
 namespace SPLab.CSVFileControl
 {
     /// <summary>
-    /// Interaction logic for CSVFileView.xaml
+    /// Реализует View часть виджета CSVFile
     /// </summary>
     public partial class CSVFileView : UserControl
     {
