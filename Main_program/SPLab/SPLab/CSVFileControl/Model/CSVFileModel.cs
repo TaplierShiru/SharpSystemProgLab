@@ -124,5 +124,18 @@ namespace SPLab.CSVFileControl
                     new Type[] { typeof(int) }
                 ).Invoke(this._file_controller, new object[] { indx });
         }
+
+        /// <inheritdoc/>
+        public void UpdateValues(int indx_edit, FileInfo newFileInfo)
+        {
+
+            this._classType.GetMethod(
+                    "Edit",
+                    new Type[] { typeof(int), typeof(string), typeof(string), typeof(string) }
+                ).Invoke(this._file_controller, new object[] {
+                    indx_edit, newFileInfo.FileName, newFileInfo.Version, newFileInfo.DataOfCreation
+                }
+            );
+        }
     }
 }

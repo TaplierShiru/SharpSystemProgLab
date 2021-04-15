@@ -18,5 +18,15 @@ namespace CreationBusinessDLL.Interfaces
         /// <param name="version">Версия файла</param>
         /// <param name="dataOfCreation">Дата создания файла</param>
         void Add(string fileName, string version, string dataOfCreation);
+
+        /// <summary>
+        /// Изменить значение в элементе по индексу `indx_old`
+        /// На новые значения
+        /// </summary>
+        /// <param name="indx_old">Индекс элемента, который стоит заменить</param>
+        /// <param name="new_fileName">Имя нового файла</param>
+        /// <param name="new_version">Новая версия файла</param>
+        /// <param name="new_dataOfCreation">Новая дата создания файла</param>
+        void Edit(int indx_old, string new_fileName, string new_version, string new_dataOfCreation);
     }
 }

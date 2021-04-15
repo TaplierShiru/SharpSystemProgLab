@@ -1,4 +1,5 @@
-﻿using CreationBusinessDLL.Interfaces;
+﻿using CreationBusinessDLL.DataBase;
+using CreationBusinessDLL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,10 +15,25 @@ namespace CreationBusinessDLL.CSV
     /// </summary>
     public class CSVFileController : CSVFileControllerBase<CSVFileInfo>, ICSVFileController
     {
+
+        /// <summary>
+        /// Инициализация класса для работы с файлом csv
+        /// </summary>
+        public CSVFileController()
+        {
+            var files = DbController.GetFiles();
+            foreach (CSVFileInfo elem in files)
+            {
+                base.Add(elem);
+            }
+        }
+
         /// <inheritdoc/>
         public void Add(string fileName, string version, string dataOfCreation)
         {
-            base.Add(new CSVFileInfo(fileName, version, dataOfCreation));
+            var new_fileInfo = new CSVFileInfo(fileName, version, dataOfCreation);
+            DbController.AddFileInfo(new_fileInfo);
+            base.Add(new_fileInfo);
         }
 
         /// <inheritdoc/>
@@ -28,7 +44,43 @@ namespace CreationBusinessDLL.CSV
             string fileName = fileInfo.Name;
             string dataOfCreation = fileInfo.CreationTime.ToString();
 
-            base.Add(new CSVFileInfo(fileName, version, dataOfCreation));
+            this.Add(fileName, version, dataOfCreation);
+        }
+
+        /// <inheritdoc/>
+        public new void Remove(int indx)
+        {
+            DbController.DeleteFileInfo((CSVFileInfo)base.GetAtIndexDataElem(indx));
+            base.Remove(indx);
+        }
+
+        /// <inheritdoc/>
+        public void Edit(int indx_old, string new_fileName, string new_version, string new_dataOfCreation)
+        {
+            var old_fileInfo = (CSVFileInfo)base.GetAtIndexDataElem(indx_old);
+            if (old_fileInfo.FileName == new_fileName && old_fileInfo.Version == new_version && old_fileInfo.DataOfCreation == new_dataOfCreation)
+            {
+                // Elemnt does not change at all
+                return;
+            }
+            DbController.EditFileInfo(old_fileInfo, new_fileName, new_version, new_dataOfCreation);
+
+            old_fileInfo.FileName = new_fileName;
+            old_fileInfo.Version = new_version;
+            old_fileInfo.DataOfCreation = new_dataOfCreation;
+        }
+
+        /// <inheritdoc/>
+        public new void Load(string path)
+        {
+            int old_size = base.GetListSize;
+            base.Load(path);
+            int new_size = base.GetListSize;
+            // Update database
+            for (int i = old_size; i < new_size; i++)
+            {
+                DbController.AddFileInfo((CSVFileInfo)base.GetAtIndexDataElem(i));
+            }
         }
     }
 }

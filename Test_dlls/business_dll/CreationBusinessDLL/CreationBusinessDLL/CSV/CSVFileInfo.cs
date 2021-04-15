@@ -26,6 +26,9 @@ namespace CreationBusinessDLL.CSV
         private string _version;
         private string _data_creation;
 
+        /// <inheritdoc/>
+        public int Id { get; set; }
+
         /// <summary>
         /// Имя файла
         /// </summary>

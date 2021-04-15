@@ -24,14 +24,19 @@ namespace SPLab.CSVFileControl
         /// <inheritdoc/>
         public FileInfo SelectedItem
         {
-            get { return _selectedItem; }
+            get { return this._selectedItem; }
             set
             {
-                _selectedItem = value;
+                // Update previous selected item
+                if (!(this._selectedItem is null))
+                {
+                    this._file_controller.UpdateValues(this._selectedItem.Indx, this._selectedItem);
+                }
+                this._selectedItem = value;
                 NotifyPropertyChanged("SelectedItem");
                 if (!(this._selectedItem is null))
                 {
-                    Trace.WriteLine("Select: " + _selectedItem.FileName);
+                    Trace.WriteLine("Select: " + _selectedItem.FileName + " index: " + _selectedItem.Indx);
                 }
             }
         }
@@ -114,7 +119,6 @@ namespace SPLab.CSVFileControl
         public CSVFileViewModel()
         {
             this._file_controller = new CSVFileModel();
-            GenerateFilesTest();
         }
         
         /// <summary>
@@ -194,18 +198,5 @@ namespace SPLab.CSVFileControl
             NotifyPropertyChanged("FileInfo");
         }
 
-        /// <summary>
-        /// Тестовые начальные данные
-        /// </summary>
-        private void GenerateFilesTest()
-        {
-            this._file_controller.Add("Badyda", "v1", "20.20.20");
-            this._file_controller.Add("Badyda", "v1", "20.2.5");
-            this._file_controller.Add("Szdad2", "v1", "20.2.3");
-            this._file_controller.Add("VVxZZZ", "v3", "20.20.1");
-            this._file_controller.Add("Badyda", "v2", "20.20.2");
-            this._file_controller.Add("ZZZZZZ", "v1", "20.20.2");
-            NotifyPropertyChanged("FileInfo");
-        }
     }
 }

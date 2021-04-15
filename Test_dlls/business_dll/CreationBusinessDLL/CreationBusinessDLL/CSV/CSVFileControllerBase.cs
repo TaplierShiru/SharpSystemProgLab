@@ -30,20 +30,11 @@ namespace CreationBusinessDLL.CSV
             this._elements = new List<ICSVDataElem>();
         }
 
-        /// <summary>
-        /// Инициализация класса для работы с файлом csv
-        /// </summary>
-        /// <param name="path">Путь до csv файла из которого будут считаны данные, пример: "/home/user/tas.csv"</param>
-        public CSVFileControllerBase(string path)
-        {
-            this.Load(path);
-        }
-
         /// <inheritdoc/>
         public void Load(string path)
         {
             var reader = new CSVFileReader(path);
-            this._elements = reader.ReadCSV<T>();
+            this._elements.AddRange(reader.ReadCSV<T>());
             reader.Close();
         }
 
@@ -82,6 +73,11 @@ namespace CreationBusinessDLL.CSV
         public string[] GetAtIndex(int index)
         {
             return this._elements[index].GetCSVData;
+        }
+
+        protected ICSVDataElem GetAtIndexDataElem(int indx)
+        {
+            return this._elements[indx];
         }
 
     }

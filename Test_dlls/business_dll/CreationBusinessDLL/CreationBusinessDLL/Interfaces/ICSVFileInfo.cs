@@ -12,6 +12,11 @@ namespace CreationBusinessDLL.Interfaces
     public interface ICSVFileInfo : ICSVDataElem
     {
         /// <summary>
+        /// Id данного элемента (уникальное значение) 
+        /// </summary>
+        int Id { get; set; }
+
+        /// <summary>
         /// Имя файла
         /// </summary>
         string FileName { get; set; }
