@@ -23,7 +23,7 @@ namespace SPLab.LowMathControl
         public LowMathView()
         {
             InitializeComponent();
-            DataContext = new LowMathViewModel();
+            DataContext = new LowMathViewModel(new LowMathModel());
         }
 
     }

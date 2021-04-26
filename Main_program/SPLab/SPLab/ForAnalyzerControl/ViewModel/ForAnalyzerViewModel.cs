@@ -1,4 +1,5 @@
-﻿using SPLab.Utils;
+﻿using SPLab.LogPanelControl.Utils;
+using SPLab.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,7 @@ namespace SPLab.ForAnalyzerControl
 
         public event PropertyChangedEventHandler PropertyChanged;
         
-        private ForAnalyzerModel _forAnalyzerModel;
+        private IForAnalyzerModel _forAnalyzerModel;
         
         ///<inheritdoc/>
         public string AnalyzedCode
@@ -77,10 +78,13 @@ namespace SPLab.ForAnalyzerControl
             }
         }
 
-
-        public ForAnalyzerViewModel()
+        /// <summary>
+        /// Инициализация класса реализующего ViewModel часть виджета ForAnalyzer
+        /// </summary>
+        /// <param name="forAnalyzerModel">Модуль реализующий логику виджета</param>
+        public ForAnalyzerViewModel(IForAnalyzerModel forAnalyzerModel)
         {
-            this._forAnalyzerModel = new ForAnalyzerModel();
+            this._forAnalyzerModel = forAnalyzerModel;
         }
 
         /// <summary>
@@ -88,9 +92,9 @@ namespace SPLab.ForAnalyzerControl
         /// </summary>
         private void AnalyzeCode()
         {
-            Mediator.NotifyColleagues("PrintLog", "Анализ выражения...");
+            LogPanelMediator.PrintInLogPanel("Анализ выражения...");
             this._forAnalyzerModel.AnalyzeCode();
-            Mediator.NotifyColleagues("PrintLog", "Анализ завершен.");
+            LogPanelMediator.PrintInLogPanel("Анализ завершен.");
             NotifyPropertyChanged("GetErrorMessage");
             NotifyPropertyChanged("GetNumFor");
         }

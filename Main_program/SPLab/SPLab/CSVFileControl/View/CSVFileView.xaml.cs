@@ -28,7 +28,7 @@ namespace SPLab.CSVFileControl
         public CSVFileView()
         {
             InitializeComponent();
-            DataContext = new CSVFileViewModel();
+            DataContext = new CSVFileViewModel(new CSVFileModel());
         }
     }
 }

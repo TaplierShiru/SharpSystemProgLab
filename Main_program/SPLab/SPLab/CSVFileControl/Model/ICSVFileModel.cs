@@ -61,5 +61,21 @@ namespace SPLab.CSVFileControl
         /// <param name="index">Индекс записи</param>
         /// <returns>Массив данных записи</returns>
         string[] GetAtIndex(int indx);
+
+        /// <summary>
+        /// Устанавливает значение: имя файла, версию и дату созданию из элемента
+        /// По индексу `indx_old` в хранящийся коллекции элементу `fileInfo`
+        /// </summary>
+        /// <param name="indx_old">Индекс элемента в кранящийся коллекции</param>
+        /// <param name="fileInfo">Объект в котором следует обновить: имя файла, версию и дату созданию элемента</param>
+        void RestoreValues(int indx_old, FileInfo fileInfo);
+
+        /// <summary>
+        /// Обновленние значения в business длл
+        /// </summary>
+        /// <param name="indx_edit">Индекс элемента, который был изменен</param>
+        /// <param name="newFileInfo">Новый объект (измененный) с информацией об файле</param>
+        /// <returns>true - если объект был изменен, иначе false</returns>
+        bool UpdateValues(int indx_edit, FileInfo newFileInfo);
     }
 }

@@ -48,6 +48,10 @@ namespace CreationBusinessDLL.SharpAnalyzer
         /// <inheritdoc/>
         public bool AnalyzeCode()
         {
+            // Clear prev. calls
+            this._num_for = 0;
+            this._error_mess = "";
+
             var compiler = new CSharpCodeProvider();
             var parameters = new CompilerParameters(new string[] { "mscorlib.dll", "System.Core.dll" }, null, true);
             parameters.GenerateExecutable = true;
@@ -99,7 +103,7 @@ namespace CreationBusinessDLL.SharpAnalyzer
                     public int MethodHelp()
                     {
                         int counter = 0;
-" + this.InsertToCode() + @"
+" + this.InsertCounterToCode() + @"
                         return counter;
                     }
                 }";
@@ -109,7 +113,7 @@ namespace CreationBusinessDLL.SharpAnalyzer
         /// Вставка счетчика в анализируемый код
         /// чтобы успешно посчитать кол-во выполнений цикла
         /// </summary>
-        private string InsertToCode()
+        private string InsertCounterToCode()
         {
             int i = 0;
             while (i < AnalyzedCode.Length && AnalyzedCode[i] != '{')

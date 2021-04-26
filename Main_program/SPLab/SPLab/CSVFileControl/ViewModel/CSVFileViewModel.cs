@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using SPLab.LogPanelControl;
+using SPLab.LogPanelControl.Utils;
 using SPLab.Utils;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -19,6 +21,8 @@ namespace SPLab.CSVFileControl
     class CSVFileViewModel : INotifyPropertyChanged, ICSVFileViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private bool _is_table_update = false;
+        private ICSVFileModel _file_controller;
 
         private FileInfo _selectedItem;
         /// <inheritdoc/>
@@ -28,20 +32,29 @@ namespace SPLab.CSVFileControl
             set
             {
                 // Update previous selected item
-                if (!(this._selectedItem is null))
+                if (!(this._selectedItem is null) && !this._is_table_update)
                 {
-                    this._file_controller.UpdateValues(this._selectedItem.Indx, this._selectedItem);
+                    try
+                    {
+                        if (this._file_controller.UpdateValues(this._selectedItem.Indx, this._selectedItem))
+                        {
+                            LogPanelMediator.PrintInLogPanel("Запись в таблице была изменена");
+                        }
+                    } catch (FormatException)
+                    {
+                        MessageBox.Show("Ошибка ввода даты", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        this._file_controller.RestoreValues(this._selectedItem.Indx, this._selectedItem);
+                    }
                 }
                 this._selectedItem = value;
                 NotifyPropertyChanged("SelectedItem");
+
                 if (!(this._selectedItem is null))
                 {
-                    Trace.WriteLine("Select: " + _selectedItem.FileName + " index: " + _selectedItem.Indx);
+                    this._is_table_update = false;
                 }
             }
         }
-
-        private CSVFileModel _file_controller;
 
         /// <inheritdoc/>
         public ICollectionView FileInfo
@@ -114,11 +127,12 @@ namespace SPLab.CSVFileControl
         }
 
         /// <summary>
-        /// Инициализация ViewModel части виджета CSVFile
+        /// Инициализация ViewModel виджета CSVFile
         /// </summary>
-        public CSVFileViewModel()
+        /// <param name="csvFileModel">Класс реализующий логику виджета</param>
+        public CSVFileViewModel(ICSVFileModel csvFileModel)
         {
-            this._file_controller = new CSVFileModel();
+            this._file_controller = csvFileModel;
         }
         
         /// <summary>
@@ -126,13 +140,13 @@ namespace SPLab.CSVFileControl
         /// </summary>
         private void AddNewFileInfo()
         {
+            this._is_table_update = true;
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Executable files (*.exe)|*.exe";
             if (openFileDialog.ShowDialog() == true)
             {
-                Trace.WriteLine(openFileDialog.FileName);
                 this._file_controller.Add(openFileDialog.FileName);
-                this.NotifyFileInfoAndUpdateLogInfo("Add new item.");
+                this.NotifyFileInfoAndUpdateLogInfo("Новая запись была добавлена");
             }
         }
 
@@ -141,8 +155,9 @@ namespace SPLab.CSVFileControl
         /// </summary>
         private void RemoveSelectedItem()
         {
+            this._is_table_update = true;
             this._file_controller.Remove(this._selectedItem.Indx);
-            this.NotifyFileInfoAndUpdateLogInfo("Remove selected item from table.");
+            this.NotifyFileInfoAndUpdateLogInfo("Выбранная запись была удалена");
         }
 
         /// <summary>
@@ -150,13 +165,13 @@ namespace SPLab.CSVFileControl
         /// </summary>
         private void LoadFileInfo()
         {
+            this._is_table_update = true;
             var openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "CSV files (*.csv)|*.csv";
             if (openFileDialog.ShowDialog() == true)
             {
-                Trace.WriteLine(openFileDialog.FileName);
                 this._file_controller.Load(openFileDialog.FileName);
-                this.NotifyFileInfoAndUpdateLogInfo("Load current table from: " + openFileDialog.FileName);
+                this.NotifyFileInfoAndUpdateLogInfo("Загрузка csv файла по пути: " + openFileDialog.FileName);
             }
         }
 
@@ -170,9 +185,8 @@ namespace SPLab.CSVFileControl
             saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
             if (saveFileDialog.ShowDialog() == true)
             {
-                Trace.WriteLine(saveFileDialog.FileName);
                 this._file_controller.Save(saveFileDialog.FileName);
-                this.NotifyFileInfoAndUpdateLogInfo("Save current table to: " + saveFileDialog.FileName);
+                this.NotifyFileInfoAndUpdateLogInfo("Сохранение csv файла по пути: " + saveFileDialog.FileName);
             }
         }
 
@@ -194,7 +208,7 @@ namespace SPLab.CSVFileControl
         /// <param name="logStr">Информация которую следует вывести в лог</param>
         private void NotifyFileInfoAndUpdateLogInfo(string logStr)
         {
-            Mediator.NotifyColleagues("PrintLog", logStr);
+            LogPanelMediator.PrintInLogPanel(logStr);
             NotifyPropertyChanged("FileInfo");
         }
 

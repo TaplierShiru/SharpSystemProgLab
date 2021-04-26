@@ -1,4 +1,5 @@
-﻿using SPLab.Utils;
+﻿using SPLab.LogPanelControl.Utils;
+using SPLab.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,9 +10,16 @@ using System.Windows.Input;
 
 namespace SPLab.LowMathControl
 {
+    /// <summary>
+    /// Класс реализующий ViewModel часть LowMath виджета
+    /// Который рассчитывает значение при помощи низкоуровневого языка
+    /// </summary>
     class LowMathViewModel : ILowMathViewModel, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private ILowMathModel _lowMathModel;
+
+        /// <inheritdoc/>
         public string VarA
         {
             get { return this._lowMathModel.VarA; }
@@ -22,7 +30,7 @@ namespace SPLab.LowMathControl
             }
         }
 
-
+        /// <inheritdoc/>
         public string VarB
         {
             get { return this._lowMathModel.VarB; }
@@ -34,6 +42,7 @@ namespace SPLab.LowMathControl
         }
 
         private string _res;
+        /// <inheritdoc/>
         public string Res
         {
             get { return _res; }
@@ -45,6 +54,7 @@ namespace SPLab.LowMathControl
         }
 
         private string _error;
+        /// <inheritdoc/>
         public string ErrorMess
         {
             get { return _error; }
@@ -56,6 +66,7 @@ namespace SPLab.LowMathControl
         }
 
         private ICommand _calculateCommand;
+        /// <inheritdoc/>
         public ICommand CalculateCommand
         {
             get
@@ -69,29 +80,40 @@ namespace SPLab.LowMathControl
                 return this._calculateCommand;
             }
         }
-        private LowMathModel _lowMathModel;
-        public LowMathViewModel()
+
+        /// <summary>
+        /// Иницилазция ViewModel части виджета LowMath
+        /// </summary>
+        /// <param name="lowMathModel">Класс реализующий логику виджета</param>
+        public LowMathViewModel(ILowMathModel lowMathModel)
         {
-            this._lowMathModel = new LowMathModel();
+            this._lowMathModel = lowMathModel;
         }
 
+        /// <summary>
+        /// Расчет значения на низкоуровневом языке
+        /// </summary>
         private void Calculate()
         {
-            Mediator.NotifyColleagues("PrintLog", "Идет расчет при помощи низкоуровневой функции...");
+            LogPanelMediator.PrintInLogPanel("Идет расчет при помощи низкоуровневой функции...");
             var res = this._lowMathModel.Calculate();
             this.Res = res + "";
             if (res is null)
             {
-                Mediator.NotifyColleagues("PrintLog", "Расчет при помощи низкоуровневой функции закончен неудачно.");
+                LogPanelMediator.PrintInLogPanel("Расчет при помощи низкоуровневой функции закончен неудачно.");
                 this.ErrorMess = this._lowMathModel.ErrorMess;
             }
             else
             {
-                Mediator.NotifyColleagues("PrintLog", "Расчет при помощи низкоуровневой функции закончен успешно.");
+                LogPanelMediator.PrintInLogPanel("Расчет при помощи низкоуровневой функции закончен успешно.");
                 this.ErrorMess = "";
             }
         }
 
+        /// <summary>
+        /// Обновление ячеек таблицы и вывод информации в логгер
+        /// </summary>
+        /// <param name="logStr">Информация которую следует вывести в лог</param>
         private void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)

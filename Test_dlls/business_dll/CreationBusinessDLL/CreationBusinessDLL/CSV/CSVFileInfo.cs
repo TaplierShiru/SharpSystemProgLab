@@ -29,17 +29,13 @@ namespace CreationBusinessDLL.CSV
         /// <inheritdoc/>
         public int Id { get; set; }
 
-        /// <summary>
-        /// Имя файла
-        /// </summary>
+        /// <inheritdoc/>
         public string FileName { get => this._file_name; set => this._file_name = value; }
-        /// <summary>
-        /// Версия файла
-        /// </summary>
+        
+        /// <inheritdoc/>
         public string Version { get => this._version; set => this._version = value; }
-        /// <summary>
-        /// Дата создания файла
-        /// </summary>
+        
+        /// <inheritdoc/>
         public string DataOfCreation { get => this._data_creation; set => this._data_creation = value; }
 
 

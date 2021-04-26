@@ -24,7 +24,7 @@ namespace SPLab.ForAnalyzerControl
         public ForAnalyzerView()
         {
             InitializeComponent();
-            DataContext = new ForAnalyzerViewModel();
+            DataContext = new ForAnalyzerViewModel(new ForAnalyzerModel());
         }
         
     }

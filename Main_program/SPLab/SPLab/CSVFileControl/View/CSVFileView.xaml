@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d">
+             mc:Ignorable="d" Background="White">
     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
@@ -21,9 +21,9 @@
                   Grid.Column="1" Grid.Row="1" ItemsSource="{Binding FileInfo}" SelectedItem="{Binding SelectedItem}"
                   AutoGenerateColumns="False" RowHeaderWidth="0" HorizontalAlignment="Left" VerticalAlignment="Stretch">
             <DataGrid.Columns>
-                <DataGridTextColumn MinWidth="80" Binding="{Binding FileName}" Header="Имя файла"></DataGridTextColumn>
-                <DataGridTextColumn MinWidth="50" Binding="{Binding Version}" Header="Версия"></DataGridTextColumn>
-                <DataGridTextColumn MinWidth="80" Binding="{Binding DataOfCreation}" Header="Дата создания"></DataGridTextColumn>
+                <DataGridTextColumn MinWidth="130" MaxWidth="130" Binding="{Binding FileName}" Header="Имя файла"></DataGridTextColumn>
+                <DataGridTextColumn MinWidth="80" MaxWidth="80" Binding="{Binding Version}" Header="Версия"></DataGridTextColumn>
+                <DataGridTextColumn MinWidth="130" MaxWidth="130" Binding="{Binding DataOfCreation}" Header="Дата создания"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center">

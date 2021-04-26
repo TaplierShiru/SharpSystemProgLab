@@ -55,19 +55,23 @@ namespace CreationBusinessDLL.CSV
         }
 
         /// <inheritdoc/>
-        public void Edit(int indx_old, string new_fileName, string new_version, string new_dataOfCreation)
+        public bool Edit(int indx_old, string new_fileName, string new_version, string new_dataOfCreation)
         {
             var old_fileInfo = (CSVFileInfo)base.GetAtIndexDataElem(indx_old);
-            if (old_fileInfo.FileName == new_fileName && old_fileInfo.Version == new_version && old_fileInfo.DataOfCreation == new_dataOfCreation)
+            if (old_fileInfo.FileName == new_fileName &&
+                old_fileInfo.Version == new_version && 
+                old_fileInfo.DataOfCreation == new_dataOfCreation)
             {
                 // Elemnt does not change at all
-                return;
+                return false;
             }
             DbController.EditFileInfo(old_fileInfo, new_fileName, new_version, new_dataOfCreation);
 
             old_fileInfo.FileName = new_fileName;
             old_fileInfo.Version = new_version;
             old_fileInfo.DataOfCreation = new_dataOfCreation;
+
+            return true;
         }
 
         /// <inheritdoc/>

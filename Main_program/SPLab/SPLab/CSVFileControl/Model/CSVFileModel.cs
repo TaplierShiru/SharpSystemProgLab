@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -91,8 +92,6 @@ namespace SPLab.CSVFileControl
                     path
                 }
             );
-
-            Trace.WriteLine(GetList.Count);
         }
 
         ///<inheritdoc/>
@@ -105,8 +104,6 @@ namespace SPLab.CSVFileControl
                     indx
                 }
             );
-
-            Trace.WriteLine("Remove: " + indx);
         }
 
         ///<inheritdoc/>
@@ -126,10 +123,29 @@ namespace SPLab.CSVFileControl
         }
 
         /// <inheritdoc/>
-        public void UpdateValues(int indx_edit, FileInfo newFileInfo)
+        public void RestoreValues(int indx_old, FileInfo newFileInfo)
         {
+            var infos = this.GetAtIndex(indx_old);
+            newFileInfo.FileName = infos[0];
+            newFileInfo.Version = infos[1];
+            newFileInfo.DataOfCreation = infos[2];
+        }
 
-            this._classType.GetMethod(
+        /// <inheritdoc/>
+        public bool UpdateValues(int indx_edit, FileInfo newFileInfo)
+        {
+            var date_creation = newFileInfo.DataOfCreation;
+
+            DateTime result;
+            CultureInfo ci = CultureInfo.CurrentCulture;
+            string[] fmts = ci.DateTimeFormat.GetAllDateTimePatterns();
+            if (!DateTime.TryParseExact(date_creation, fmts, ci,
+               DateTimeStyles.AssumeLocal, out result))
+            {
+                throw new FormatException();
+            }
+
+            return (bool)this._classType.GetMethod(
                     "Edit",
                     new Type[] { typeof(int), typeof(string), typeof(string), typeof(string) }
                 ).Invoke(this._file_controller, new object[] {

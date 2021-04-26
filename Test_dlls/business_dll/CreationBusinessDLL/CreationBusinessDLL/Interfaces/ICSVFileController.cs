@@ -27,6 +27,7 @@ namespace CreationBusinessDLL.Interfaces
         /// <param name="new_fileName">Имя нового файла</param>
         /// <param name="new_version">Новая версия файла</param>
         /// <param name="new_dataOfCreation">Новая дата создания файла</param>
-        void Edit(int indx_old, string new_fileName, string new_version, string new_dataOfCreation);
+        /// <returns>true - если объект был изменен, иначе false</returns>
+        bool Edit(int indx_old, string new_fileName, string new_version, string new_dataOfCreation);
     }
 }
