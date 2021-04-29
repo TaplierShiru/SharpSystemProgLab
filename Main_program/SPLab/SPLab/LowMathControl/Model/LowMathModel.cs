@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -50,7 +51,7 @@ namespace SPLab.LowMathControl
         private uint ByteOr(uint var_a, uint var_b)
         {
             Assembly asm = Assembly.Load(System.IO.File.ReadAllBytes(
-                @"D:\University\СП\Лаба\SharpSystemProgLab\Test_dlls\low_dll\low_dll\low_dll\bin\Debug\LowMathByteOr.dll"
+                Path.GetFullPath(@"LowMathByteOr.dll")
             ));
             Type t = asm.GetType("LowMathByteOr_DLL");
             return (uint)t.GetMethod(

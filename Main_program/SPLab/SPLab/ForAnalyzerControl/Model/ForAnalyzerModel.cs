@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -17,9 +18,7 @@ namespace SPLab.ForAnalyzerControl
         private Assembly _dll_info;
         private object _sharp_analyzer;
         // Путь до dll файла
-        private string _path_to_dll = @"D:\University\СП\Лаба\SharpSystemProgLab\Test_dlls\" +
-                                      @"business_dll\CreationBusinessDLL\CreationBusinessDLL\" +
-                                      @"bin\Debug\CreationBusinessDLL.dll";
+        private string _path_to_dll = @"CreationBusinessDLL.dll";
 
         ///<inheritdoc/>
         public string AnalyzedCode
@@ -36,7 +35,7 @@ namespace SPLab.ForAnalyzerControl
 
         public ForAnalyzerModel()
         {
-            this._dll_info = Assembly.LoadFile(this._path_to_dll);
+            this._dll_info = Assembly.LoadFile(Path.GetFullPath(this._path_to_dll));
             this._classType = this._dll_info.GetType("CreationBusinessDLL.SharpAnalyzer.SharpForAnalyzer");
             this._sharp_analyzer = Activator.CreateInstance(this._classType);
         }

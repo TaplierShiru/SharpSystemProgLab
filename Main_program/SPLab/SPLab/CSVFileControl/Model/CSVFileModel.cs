@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -20,9 +21,7 @@ namespace SPLab.CSVFileControl
         private Assembly _dll_info;
         private object _file_controller;
         // Путь до dll 
-        private string _path_to_dll = @"D:\University\СП\Лаба\SharpSystemProgLab\Test_dlls\" +
-                                      @"business_dll\CreationBusinessDLL\CreationBusinessDLL\" +
-                                      @"bin\Debug\CreationBusinessDLL.dll";
+        private string _path_to_dll = @"CreationBusinessDLL.dll";
         
         ///<inheritdoc/>
         public List<FileInfo> GetList
@@ -48,7 +47,7 @@ namespace SPLab.CSVFileControl
         /// </summary>
         public CSVFileModel()
         {
-            this._dll_info = Assembly.LoadFile(this._path_to_dll);
+            this._dll_info = Assembly.LoadFile(Path.GetFullPath(this._path_to_dll));
             this._classType = this._dll_info.GetType("CreationBusinessDLL.CSV.CSVFileController");
             this._file_controller = Activator.CreateInstance(this._classType);
         }
