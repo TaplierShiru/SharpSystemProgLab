@@ -134,17 +134,20 @@ namespace SPLab.CSVFileControl
         /// <inheritdoc/>
         public bool UpdateValues(int indx_edit, FileInfo newFileInfo)
         {
+            // Берем обновленную дату создания (новое)
             var date_creation = newFileInfo.DataOfCreation;
 
+            // Проверяем корректность новой даты
             DateTime result;
             CultureInfo ci = CultureInfo.CurrentCulture;
             string[] fmts = ci.DateTimeFormat.GetAllDateTimePatterns();
             if (!DateTime.TryParseExact(date_creation, fmts, ci,
                DateTimeStyles.AssumeLocal, out result))
             {
+                // Кидаем исключение, если дата была введение неверно
                 throw new FormatException();
             }
-
+            // Дата была введена верно, делаем обновление значения поля
             return (bool)this._classType.GetMethod(
                     "Edit",
                     new Type[] { typeof(int), typeof(string), typeof(string), typeof(string) }

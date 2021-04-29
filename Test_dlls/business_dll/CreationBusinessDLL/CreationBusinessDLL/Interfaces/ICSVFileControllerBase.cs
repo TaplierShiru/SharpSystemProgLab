@@ -45,7 +45,6 @@ namespace CreationBusinessDLL.Interfaces
 
         /// <summary>
         /// Чтение csv файла и загрузка всех его записей в текущий массив.
-        /// Текущий массив перед этим будет очищен
         /// </summary>
         /// <param name="path">Путь до csv файла, с которого нужно считать данные</param>
         void Load(string path);
